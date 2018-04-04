@@ -10,8 +10,16 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@vimeo/player": "^2.5.0",
+    "animejs": "^2.2.0",
+    "scrollreveal": "^3.4.0",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-feather-icons": "^4.7.0",
+    "vue-parallax-js": "^0.0.7",
+    "vue-router": "^3.0.1",
+    "vue-scroll": "^2.1.7",
+    "vue-scroll-reveal": "^1.0.7",
+    "vuescroll": "^3.7.12"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
