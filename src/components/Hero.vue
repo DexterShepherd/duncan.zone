@@ -63,7 +63,7 @@ export default {
 <style scoped>
 
 .landing {
-  height: 200vh;
+  height: 100vh;
 }
 
 span {

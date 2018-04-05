@@ -15,7 +15,7 @@ Vue.use(VueScrollReveal, {
   scale: 1,
   reset: false,
   mobile: false,
-  viewFactor: 0.2
+  viewFactor: 0.5
 })
 
 Vue.config.productionTip = false

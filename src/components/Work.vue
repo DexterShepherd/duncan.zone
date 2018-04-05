@@ -1,19 +1,20 @@
 <template>
   <div class='page-container work'>
-    <h1 ref='workTitle' class='page-title' v-scroll-reveal.reset>
+    <h1 ref='workTitle' class='page-title'>
       WE DID THESE AMAZING JOBS<span class='work-anim orange'>.</span>
     </h1>
 
-    <div class="videos-container">
-      <Video v-for="v in videos"
-             :thumbnail="v.thumbnail"
-             :client='v.client'
-             :size='v.size'
-             :title='v.title'
-             :key='v.id'
-             @view="viewing = true"
-             v-scroll-reveal.reset />
-    </div>
+    <transition name='simple-fade'>
+      <div class="videos-container" v-show='animFinished'>
+        <Video v-for="v in videos"
+               :thumbnail="v.thumbnail"
+               :client='v.client' :size='v.size'
+               :title='v.title'
+               :key='v.id'
+               @view="viewing = true"
+               v-scroll-reveal />
+      </div>
+    </transition>
 
     <transition name='view'>
       <div class='viewer' v-show='viewing'>
@@ -49,6 +50,7 @@ export default {
       windowHeight: 0,
       pageHeight: 0,
       top: 0,
+      animFinished: false,
       videos: [ 
         {
           id: '1',
@@ -117,18 +119,19 @@ export default {
       }
     },
     scrollPos(newVal) {
-      console.log('somethiung')
       this.timeline.seek(
-        this.timeline.duration * this.normalizedScrollPos * 0.5
+        1000 - ( this.normalizedScrollPos * 1000 ) 
       )
+      if ( this.normalizedScrollPos >= 1 ) {
+        this.animFinished = true
+      } else {
+        this.animFinished = false
+      }
     },
   },
   computed: {
     normalizedScrollPos() {
-      if ( this.scrollPos > this.top - this.windowHeight) {
-        return (this.scrollPos - ( this.top - this.windowHeight)) / this.pageHeight
-      }
-      return 0 
+      return (this.scrollPos - ( this.top - this.windowHeight)) / this.windowHeight
     },
   },
   mounted() {
@@ -138,10 +141,7 @@ export default {
       if (c == ' ') {
         return c
       }
-      const style = `
-      transform: rotateX(${( Math.random() * 2 - 1 ) * 360}deg) rotateY(${( Math.random() * 2 - 1 ) * 360}deg);
-      `
-      return `<span class='work-anim' style="${style}">${c}</span>`
+      return `<span class='work-anim'>${c}</span>`
     }).join('') + '<' + dot
     this.$refs.workTitle.innerHTML = spanned
 
@@ -155,8 +155,8 @@ export default {
 
     this.timeline.add({
       targets: '.work-anim',
-      rotateX: 0,
-      rotateY: 0,
+      rotateX: () => ( Math.random() * 2 - 1 ) * 360,
+      rotateY: () => ( Math.random() * 2 - 1 ) * 360,
       elasticity: 0,
       autoplay: false,
       offset: 0,
@@ -165,6 +165,14 @@ export default {
 }
 </script>
 <style>
+
+.work {
+  min-height: 100vh;
+}
+.work .page-title {
+  display: inline-block;
+  padding: 5em 0 1em 0;
+}
 
 .work-anim {
   display: inline-block;
@@ -214,6 +222,14 @@ export default {
   opacity: 0;
 }
 
+.simple-fade-enter-active, .simple-fade-leave-active {
+  transition: opacity .6s ease-in-out;
+}  
+
+.simple-fade-enter, .simple-fade-leave-to{
+  opacity: 0;
+}
+
 .viewer {
   position: fixed;
   top: 0px;
@@ -240,7 +256,4 @@ export default {
   text-align: center;
 }
 
-.page-title {
-  padding-top: 2em;
-}
 </style>
