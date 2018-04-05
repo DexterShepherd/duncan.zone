@@ -47,7 +47,7 @@ export default {
   watch: {
     scrollPos(newVal) {
       this.timeline.seek(
-        this.timeline.duration * this.normalizedScrollPos * 0.2
+        this.timeline.duration * this.normalizedScrollPos
       )
      
     },
@@ -63,7 +63,7 @@ export default {
 <style scoped>
 
 .landing {
-  height: 150vh;
+  height: 200vh;
 }
 
 span {

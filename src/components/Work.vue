@@ -1,7 +1,7 @@
 <template>
   <div class='page-container work'>
-    <h1 class='page-title' v-scroll-reveal.reset>
-      WE DID THESE AMAZING JOBS<span class='orange'>.</span>
+    <h1 ref='workTitle' class='page-title' v-scroll-reveal.reset>
+      WE DID THESE AMAZING JOBS<span class='work-anim orange'>.</span>
     </h1>
 
     <div class="videos-container">
@@ -32,8 +32,10 @@
 import Player from '@vimeo/player'
 import Video from './Video.vue'
 import { XIcon } from 'vue-feather-icons'
+import Anime from 'animejs'
 
 export default {
+  props: ['scrollPos'],
   components: {
     Video,
     XIcon
@@ -44,6 +46,9 @@ export default {
       player: null,
       playerReady: false,
       unloadFrameTimer: null,
+      windowHeight: 0,
+      pageHeight: 0,
+      top: 0,
       videos: [ 
         {
           id: '1',
@@ -110,11 +115,60 @@ export default {
         document.querySelector('body').classList.remove('no-scroll')
         this.player = null
       }
-    }
+    },
+    scrollPos(newVal) {
+      console.log('somethiung')
+      this.timeline.seek(
+        this.timeline.duration * this.normalizedScrollPos * 0.5
+      )
+    },
+  },
+  computed: {
+    normalizedScrollPos() {
+      if ( this.scrollPos > this.top - this.windowHeight) {
+        return (this.scrollPos - ( this.top - this.windowHeight)) / this.pageHeight
+      }
+      return 0 
+    },
+  },
+  mounted() {
+    const text = this.$refs.workTitle.innerHTML.split('<')[0]
+    const dot = this.$refs.workTitle.innerHTML.split('<')[1]
+    const spanned = text.split('').map((c) => {
+      if (c == ' ') {
+        return c
+      }
+      const style = `
+      transform: rotateX(${( Math.random() * 2 - 1 ) * 360}deg) rotateY(${( Math.random() * 2 - 1 ) * 360}deg);
+      `
+      return `<span class='work-anim' style="${style}">${c}</span>`
+    }).join('') + '<' + dot
+    this.$refs.workTitle.innerHTML = spanned
+
+    this.windowHeight = window.innerHeight 
+    this.pageHeight = this.$el.clientHeight 
+    this.top = this.$el.getBoundingClientRect().top
+
+    this.timeline = Anime.timeline({
+      autoplay: false
+    })
+
+    this.timeline.add({
+      targets: '.work-anim',
+      rotateX: 0,
+      rotateY: 0,
+      elasticity: 0,
+      autoplay: false,
+      offset: 0,
+    })
   }
 }
 </script>
-<style scoped>
+<style>
+
+.work-anim {
+  display: inline-block;
+}
 
 .viewer-close {
   width: 50px;

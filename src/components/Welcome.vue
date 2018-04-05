@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <Hero :scrollPos="scrollPos"/>
-    <Work />
+    <Work :scrollPos="scrollPos"/>
   </div>
 </template>
 
