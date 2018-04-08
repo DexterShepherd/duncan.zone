@@ -39,4 +39,12 @@ body.no-scroll {
   color: #DC3522;
 }
 
+.page-title {
+  text-align: center;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
 </style>

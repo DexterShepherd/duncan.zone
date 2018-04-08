@@ -12,6 +12,7 @@
   "dependencies": {
     "@vimeo/player": "^2.5.0",
     "animejs": "^2.2.0",
+    "postcss": "^6.0.21",
     "scrollreveal": "^3.4.0",
     "vue": "^2.5.2",
     "vue-feather-icons": "^4.7.0",

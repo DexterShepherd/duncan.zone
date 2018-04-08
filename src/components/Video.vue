@@ -162,4 +162,15 @@ export default {
   padding-top: 60px;
 }
 
+@media screen and (max-width: 700px) {
+  .thumbnail {
+    height: 240px !important;
+    width: 90% !important;
+  }
+
+  .video-info {
+    padding-top: 60px !important;
+  }
+}
+
 </style>

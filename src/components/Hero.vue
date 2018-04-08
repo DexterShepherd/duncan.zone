@@ -6,60 +6,6 @@
   </div>
 </template>
 
-<script>
-import Anime from 'animejs'
-export default {
-  props: ['scrollPos'],
-  data() {
-    return {
-      height: 0,
-      timeline: null,
-      scrollAnimations: [],
-      mouseX: 0,
-      mouseY: 0,
-    }
-  },
-  mounted() {
-    this.height = this.$el.clientHeight
-    this.timeline = Anime.timeline({
-      autoplay: false
-    })
-
-    this.timeline.add({
-      targets: '.landing h1',
-      scale: 0,
-      opacity: 0,
-      elasticity: 0,
-      autoplay: false,
-      offset: 10,
-    })
-
-
-    this.timeline.add({
-      targets: '.landing span:not(.orange), .landing span span',
-      rotateX: () => ( Math.random() * 2 - 1 ) * 360,
-      rotateY: () => ( Math.random() * 2 - 1 ) * 360,
-      elasticity: 500,
-      autoplay: false,
-      offset: 10,
-    })
-  },
-  watch: {
-    scrollPos(newVal) {
-      this.timeline.seek(
-        this.timeline.duration * this.normalizedScrollPos
-      )
-     
-    },
-  },
-  computed: {
-    normalizedScrollPos() {
-      return Math.min(this.scrollPos, this.height) / this.height
-    },
-  },
-}
-</script>
-
 <style scoped>
 
 .landing {
@@ -79,13 +25,30 @@ span {
   top: 0;
   left: 0;
   text-align: center;
-  font-size: 12em;
+  font-size: 8em;
   margin-top: 10vh;
 }
 
 h1 {
   margin: 0;
-  font-weight: lighter;
+}
+
+@media screen and (max-width: 62em) {
+  .hero {
+    font-size: 6em;
+  }
+}
+
+@media screen and (max-width: 45em) {
+  .hero {
+    font-size: 4em;
+  }
+}
+
+@media screen and (max-width: 30em) {
+  .hero {
+    font-size: 2em;
+  }
 }
 
 </style>
