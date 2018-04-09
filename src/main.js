@@ -19,10 +19,14 @@ Vue.use(VueScrollReveal, {
 
 Vue.config.productionTip = false
 
+window.onbeforeunload = function () {
+  window.scrollTo(0, 0);
+}
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
 })
