@@ -52,7 +52,7 @@ export default {
         {
           id: '227954598',
           thumbnail: require('../assets/thumbnails/reel.png'),
-          client: 'DSF VR',
+          client: null,
           title: 'VR SHOW REEL AUG 2017',
           size: 'full-width'
         },
@@ -234,7 +234,7 @@ export default {
   left: 0px;
   width: 100vw;
   height: 100vh;
-  z-index: -2;
+  z-index: -1;
 }
 
 .videos-container {
@@ -247,14 +247,14 @@ export default {
 }
 
 @media screen and (max-width: 62em) {
-  .page-title {
-    font-size: 2em;
+  .work .page-title {
+    font-size: 1em;
   }
 }
 
 @media screen and (max-width: 35em) {
-  .page-title {
-    font-size: 1.5em;
+  .work .page-title {
+    font-size: 1.2em;
   }
 }
 

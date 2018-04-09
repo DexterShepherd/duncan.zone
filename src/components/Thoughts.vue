@@ -77,7 +77,7 @@ export default {
 
 .bio-container {
   display: flex; 
-  justify-content: space-around
+  justify-content: space-around;
 }
 
 .bio {
@@ -91,11 +91,16 @@ export default {
   width: 100%;
   background-color: #fdfdfd;
   transform-origin: left;
-  z-index: -1;
+  z-index: -3;
 }
 
 .thoughts-dot-anim, .thoughs-thesis-anim {
   display: inline-block;
+}
+
+.thoughts-scroll-anim {
+  position: relative;
+  z-index: -2;
 }
 
 

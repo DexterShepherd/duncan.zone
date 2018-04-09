@@ -1,20 +1,20 @@
 <template>
-  <div :class="['thumbnail', size]"
+  <div :class="['thumbnail', size, isMobile ? 'gray' : '']"
        :style="bgImage"
        @mouseover="active = true"
        @mouseleave="active = false"
        @click="$emit('view')">
-      <div class='video-info'>
-        <transition name='text-slide-down'>
-          <h3 class='video-client' v-show='active'> {{ client }} </h3>
-        </transition>
-        <transition name='hr'>
-          <hr v-show='active'/>
-        </transition>
-        <transition name='text-slide-up'>
-          <h1 class='video-title' v-show='active'> {{ title }}</h1>
-        </transition>
-      </div>
+    <div class='video-info'>
+      <transition name='text-slide-down'>
+        <h3 class='video-client' v-if="client" v-show='active || isMobile '> {{ client }} </h3>
+      </transition>
+      <transition name='hr'>
+        <hr v-if="client" v-show='active || isMobile'/>
+      </transition>
+      <transition name='text-slide-up'>
+        <h1 class='video-title' v-show='active || isMobile'> {{ title }}</h1>
+      </transition>
+    </div>
     <transition name='fade'>
       <div class='video-cover' v-show='active'></div>
     </transition>
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import isMobile from 'is-mobile'
 export default {
   props: {
     thumbnail: String,
@@ -34,6 +35,7 @@ export default {
     return {
       active: false,
       viewing: false,
+      isMobile: isMobile()
     }
   },
   computed: {
@@ -57,9 +59,14 @@ export default {
 }
 
 .video-title {
-  color: white;
+  color: #fdfdfd;
   padding: 0;
   margin: 0;
+}
+
+.gray {
+  -webkit-filter: grayscale(50%);
+  filter: grayscale(50%);
 }
 
 .fade-enter-active, .fade-leave-active {
