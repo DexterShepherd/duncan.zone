@@ -14,3 +14,4 @@ yarn-error.log*
 *.sln
 
 aws-credentials.json
+keys.json
