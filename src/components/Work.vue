@@ -24,7 +24,7 @@
           <XIcon v-show='viewing' class='viewer-close' @click='unmountPlayer'/>     
         </transition>
         <transition name='frame'>
-        <iframe id='player-iframe' v-show='playerReady' :src="viewing ? `https://player.vimeo.com/video/${selectedVideoID}?color=ffffff&title=0&byline=0&portrait=0` : ''" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        <iframe id='player-iframe' v-show='playerReady' :src="viewing ? `https://player.vimeo.com/video/${selectedVideoID}?color=ffffff&title=0&byline=0&portrait=0&autoplay=1` : ''" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
         </transition>
       </div>
     </transition>
