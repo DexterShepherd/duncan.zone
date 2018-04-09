@@ -1,8 +1,10 @@
 <template>
-  <div class='page-container work'>
-    <h1 ref='workTitle' class='page-title'>
-      WE DID THESE AMAZING JOBS<span class='work-anim orange'>.</span>
-    </h1>
+  <div ref='main' class='page-container work'>
+    <div class="work-title-anim-container">
+      <h1 ref='workTitle' class='page-title'>
+        WE DID THESE AMAZING JOBS<span class='work-anim orange'>.</span>
+      </h1>
+    </div>
 
     <transition name='simple-fade'>
       <div class="videos-container">
@@ -48,46 +50,53 @@ export default {
       unloadFrameTimer: null,
       videos: [ 
         {
-          id: '207528129',
-          thumbnail: require('../assets/temp-images/1.png'),
-          client: 'SONY',
-          title: 'A VIDEO ABOUT A GIRL',
+          id: '227954598',
+          thumbnail: require('../assets/thumbnails/reel.png'),
+          client: 'DSF VR',
+          title: 'VR SHOW REEL AUG 2017',
           size: 'full-width'
         },
         {
-          id: '207475087',
-          thumbnail: require('../assets/temp-images/2.png'),
-          client: 'IBM',
-          title: 'HALLWAY',
+          id: '263701467',
+          thumbnail: require('../assets/thumbnails/one-big-air.png'),
+          client: null,
+          title: 'ONE BIG AIR',
           size: 'third-width'
         },
         {
-          id: '213954770',
-          thumbnail: require('../assets/temp-images/3.png'),
-          client: 'APPLE',
-          title: 'FLOWERS AND COLORS',
+          id: '263739772',
+          thumbnail: require('../assets/thumbnails/under-the-canopy.png'),
+          client: null,
+          title: 'UNDER THE CANOPY',
           size: 'two-thirds-width'
         },
         {
-          id: '206627186',
-          thumbnail: require('../assets/temp-images/4.png'),
-          client: 'SOME OTHE COMPANY',
-          title: 'UNDISTRIBUTED NORWAY',
+          id: '263702538',
+          thumbnail: require('../assets/thumbnails/la-2024.png'),
+          client: null,
+          title: 'LA 2024 OLYMPIC BID',
           size: 'half-width'
         },
         {
-          id: '229153204',
-          thumbnail: require('../assets/temp-images/5.png'),
-          client: 'ARSENAL FC',
-          title: 'PETALS',
+          id: '263740656',
+          thumbnail: require('../assets/thumbnails/early-days.png'),
+          client: 'PAUL MCCARTNEY',
+          title: 'EARLY DAYS',
           size: 'half-width'
         },
         {
-          id: '225009076',
-          thumbnail: require('../assets/temp-images/6.png'),
-          client: 'SYNCOPY',
-          title: 'INTERSTELLA',
-          size: 'full-width'
+          id: '263704048',
+          thumbnail: require('../assets/thumbnails/espn.png'),
+          client: null,
+          title: 'ESPN MICHIGAN AT OHIO STATE',
+          size: 'two-thirds-width'
+        },
+        {
+          id: '263701896',
+          thumbnail: require('../assets/thumbnails/soul-shredding.png'),
+          client: null,
+          title: 'SOUL SHREDDING',
+          size: 'third-width'
         }
       ]
     }
@@ -134,6 +143,11 @@ export default {
       return `<span class='work-anim' style="${style}">${c}</span>`
     }).join('') + '<' + dot
     this.$refs.workTitle.innerHTML = spanned
+
+    this.$nextTick(() => {
+      const rect = this.$refs.main.getBoundingClientRect()
+      this.$emit('dims', rect)
+    })
   }
 }
 </script>
@@ -141,6 +155,7 @@ export default {
 
 .work {
   min-height: 100vh;
+  padding-bottom: 200px;
 }
 .work .page-title {
   display: inline-block;
@@ -229,6 +244,18 @@ export default {
 
 .work {
   text-align: center;
+}
+
+@media screen and (max-width: 62em) {
+  .page-title {
+    font-size: 2em;
+  }
+}
+
+@media screen and (max-width: 35em) {
+  .page-title {
+    font-size: 1.5em;
+  }
 }
 
 </style>

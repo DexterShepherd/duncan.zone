@@ -1,10 +1,21 @@
 <template>
   <div class='page-container landing'>
-    <div class="hero">
+    <div ref='main' class="hero">
       <h1><span>D</span><span>S</span><span>F</span> <span class='orange'><span>V</span><span>R</span></span></h1>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  mounted() {
+    this.$nextTick(() => {
+      const rect = this.$refs.main.getBoundingClientRect()
+      this.$emit('dims', rect)
+    })
+  }
+}
+</script>
 
 <style scoped>
 

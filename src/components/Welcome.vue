@@ -1,9 +1,10 @@
 <template>
   <div class="container">
-    <Hero />
-    <Thoughts/>
-    <Work />
-    <People />
+    <Hero @dims='onDims("hero", $event )'/>
+    <Thoughts @dims='onDims("thoughts", $event )' />
+    <Work @dims='onDims("work", $event )'/>
+    <People @dims='onDims("people", $event )'/>
+    <Footer @dims='onDims("footer", $event )'/>
   </div>
 </template>
 
@@ -14,13 +15,15 @@ import Hero from './Hero.vue'
 import Thoughts from './Thoughts.vue'
 import Work from './Work.vue'
 import People from './People.vue'
+import Footer from './Footer.vue'
 
 export default {
   components: {
     Hero,
     Thoughts,
     Work,
-    People
+    People,
+    Footer
   },
   data() {
     return {
@@ -29,6 +32,12 @@ export default {
       screenHeight: null,
       timeline: null,
       showThoughts: true,
+      pageDims: {
+        hero: null,
+        thoughts: null,
+        work: null,
+        people: null
+      }
     }
   },
   methods: {
@@ -38,6 +47,17 @@ export default {
 
       this.timeline.seek( this.scrollPos )
 
+    },
+    onDims(component, payload) {
+      this.pageDims[component] = payload
+      if( !!this.pageDims['hero'] &&
+          !!this.pageDims['work'] &&
+          !!this.pageDims['thoughts'] &&
+          !!this.pageDims['people'] &&
+          !!this.pageDims['footer']
+      ) {
+        this.initAnimations()
+      }
     },
     initAnimations() {
       this.timeline = anime.timeline({
@@ -79,7 +99,7 @@ export default {
         translateY: 1000,
         elasticty: 20,
         duration: 1000,
-        offset: this.screenHeight,
+        offset: this.pageDims.thoughts.top + 100,
         easing: 'easeInOutQuad'
       }).add({
         targets: '.thoughts-dot-anim',
@@ -87,15 +107,45 @@ export default {
         translateY: -20,
         opacity: 0,
         duration: 100,
-        offset: this.screenHeight + 400,
+        offset: this.pageDims.thoughts.top + ( this.pageDims.thoughts.height * 0.5 ),
         easing: 'easeInOutQuad',
+      }).add({
+        targets: '.work-title-anim-container',
+        translateY: [-200, 0],
+        elasticity: 0,
+        offset: this.pageDims.work.top - ( this.pageDims.thoughts.height * 0.3 ),
+        duration: 1000,
       }).add({
         targets: '.work-anim',
         rotateX: 0,
         rotateY: 0,
+        opacity: [0, 1],
         elasticity: 0,
-        offset: this.screenHeight * 1.5,
-        duration: this.screenHeight * 2,
+        offset: this.pageDims.work.top - ( this.pageDims.thoughts.height * 0.3 ),
+        duration: 1000,
+      }).add({
+        targets: '.people-background-anim',
+        scaleX: [0, 1.1],
+        elasticty: 0,
+        duration: 500,
+        delay: (el, i) => i * ( this.pageDims.people.height * 0.15 ),
+        offset: this.pageDims.people.top - ( this.pageDims.people.height * 0.5 ),
+        easing: 'easeInOutQuad'
+      }).add({
+        targets: '.people-dot-anim',
+        translateY: [50, 0],
+        opacity: [ 0, 1 ],
+        elasticty: 20,
+        duration: 100,
+        offset: `-=${this.pageDims.people.height * 0.4}`,
+        easing: 'easeInOutQuad'
+      }).add({
+        targets: '.footer hr',
+        scaleX: [ 0, 1 ],
+        elasticty: 20,
+        duration: 100,
+        offset: this.pageDims.people.top + this.pageDims.people.height * 0.3,
+        easing: 'easeInOutQuad'
       })
     }
   },
@@ -105,7 +155,6 @@ export default {
   mounted() {
     this.screenHeight = window.innerHeight 
     this.pageHeight = this.$el.clientHeight
-    this.initAnimations();
   },
   destroyed() {
     window.removeEventListener('scroll', this.onScroll)

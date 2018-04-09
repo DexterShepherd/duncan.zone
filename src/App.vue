@@ -21,6 +21,7 @@ body {
   padding: 0;
   margin: 0;
   background: #1E1E20;
+  overflow-x: hidden;
 }
 
 body.no-scroll {

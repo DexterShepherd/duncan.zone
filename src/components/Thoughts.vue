@@ -34,6 +34,7 @@ export default {
   mounted() {
     this.$nextTick(() => {
       const rect = this.$refs.main.getBoundingClientRect()
+      this.$emit('dims', rect)
       for(let i = 0; i < 3; i += 1) {
         this.$refs[`bgBlock${i + 1}`].style.height = `${ ( rect.height / 3 ) + 1 }px`
         this.$refs[`bgBlock${i + 1}`].style.top = `${ rect.top + ( rect.height / 3 ) * i }px`
@@ -50,6 +51,7 @@ export default {
   color: #1E1E20;
   padding-bottom: 200px;
 }
+
 .thoughts .page-title {
   width: 100%;
   text-align: center;
