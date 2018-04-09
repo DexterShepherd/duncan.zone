@@ -159,7 +159,7 @@ export default {
 }
 .work .page-title {
   display: inline-block;
-  padding: 256px 0 64px 0;
+  padding: 64px 0 64px 0;
 }
 
 .work-anim {

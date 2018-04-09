@@ -99,7 +99,7 @@ export default {
         translateY: 1000,
         elasticty: 20,
         duration: 1000,
-        offset: this.pageDims.thoughts.top + 100,
+        offset: this.pageDims.thoughts.top + 300,
         easing: 'easeInOutQuad'
       }).add({
         targets: '.thoughts-dot-anim',
@@ -113,7 +113,7 @@ export default {
         targets: '.work-title-anim-container',
         translateY: [-200, 0],
         elasticity: 0,
-        offset: this.pageDims.work.top - ( this.pageDims.thoughts.height * 0.3 ),
+        offset: this.pageDims.work.top - ( this.pageDims.thoughts.height * 1.5 ),
         duration: 1000,
       }).add({
         targets: '.work-anim',
